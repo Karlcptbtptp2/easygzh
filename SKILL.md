@@ -3,6 +3,22 @@ name: easyGZH
 description: "Use easyGZH to format Markdown into WeChat-public-account (公众号) HTML and publish it. Trigger when the user says '公众号排版''排版我的文章''给这篇文章套样式''把这段排到公众号''easygzh', or wants a stable per-account visual/structural tone. Operate the `easygzh` CLI (a compiled Go binary): convert/preview/inspect/publish/image/memory/theme/doctor/skills. Keep a per-account tone stable via the local OKF memory store. Do NOT use for Xiaohongshu/Zhihu formatting. Unlike md2wechat-skill, easyGZH renders LOCALLY (no paid API), needs only the user's own appid/secret to publish, and remembers tone across runs."
 ---
 
+## ⚠️ Agent 首次接触用户前必读
+
+本手册是**技术执行参考**。用户第一次接触 easyGZH 时，**不要复述下面任何技术内容**（goldmark / go-premailer / OKF / `--json` / Stage 等）——那会让用户困惑。
+
+照着接待剧本和用户说话，它规定了每一步该说什么：
+
+1. 用一句话说清 easyGZH 能干嘛（会记住你号的风格、能推草稿箱）
+2. 问"要不要装"，同意就装
+3. 装好问"要不要现在排一篇试试"
+
+接待剧本（每步都是可直接念给用户的话术）：**[`docs/agent-quickstart.md`](docs/agent-quickstart.md)**
+
+技术细节等用户主动问、或到了实际执行阶段再用下面的章节。
+
+---
+
 # easyGZH — 公众号调性排版
 
 easyGZH 把写好的文字稳定地排成符合公众号调性的版式并发布到草稿箱。它是一个**编译型 Go CLI**（`easygzh` 命令），由你（agent）指挥。核心差异化：
