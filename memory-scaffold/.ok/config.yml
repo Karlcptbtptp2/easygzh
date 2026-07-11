@@ -1,0 +1,10 @@
+# OpenKnowledge — project configuration
+# This is the only required file for an OK project root. It tells OpenKnowledge
+# where the content root is. easyGZH keeps all memory under "." (this folder).
+content:
+  dir: "."
+
+search:
+  semantic:
+    # Profile memory stays local unless the user explicitly opts in later.
+    enabled: false

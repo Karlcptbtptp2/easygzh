@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Go build output
+/easygzh
+/easygzh.exe
+/dist/
+
+# Test / scratch output
+*.test.html
+output.html
+/tmp/
+test_draft.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

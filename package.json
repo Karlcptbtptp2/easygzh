@@ -1,0 +1,36 @@
+{
+  "name": "easygzh",
+  "version": "0.1.0",
+  "description": "An Agent Skill that formats Markdown into WeChat-public-account-pasteable HTML with a stable per-account tone, backed by a local OpenKnowledge memory store.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "easygzh-render": "scripts/render.mjs",
+    "easygzh-init": "scripts/init-memory.mjs"
+  },
+  "scripts": {
+    "generate:memory": "node scripts/generate-memory-scaffold-go.mjs",
+    "render": "node scripts/render.mjs",
+    "init-memory": "node scripts/init-memory.mjs",
+    "test:render": "node scripts/render.mjs --test"
+  },
+  "dependencies": {
+    "markdown-it": "^14.1.0",
+    "juice": "^11.0.0",
+    "cheerio": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "wechat",
+    "gongzhonghao",
+    "markdown",
+    "agent-skill",
+    "open-knowledge",
+    "okf",
+    "typesetting"
+  ],
+  "license": "MIT",
+  "author": ""
+}

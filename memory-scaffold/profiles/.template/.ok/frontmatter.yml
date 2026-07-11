@@ -1,0 +1,5 @@
+# Folder metadata for this profile (OpenKnowledge folder-model).
+# Self-only — does not cascade to children. Children carry their own frontmatter.
+title: Profile 模板
+description: 仅供创建真实账号时复制的隐藏模板，不应作为激活 profile 读取。
+tags: [profile, template]
