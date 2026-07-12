@@ -1,0 +1,852 @@
+<!--
+  easyGZH 结构模板 —— design-studio（高端设计工作室风格）
+
+  适用场景：品牌介绍、工作室/公司展示、作品集、高端服务推广
+  视觉特征：冷灰白底(#1A1A1A/#E8E8E8) + 暖琥珀渐变(#C8A050) + 超大错落标题 + 双栏正文 + 极简秩序感
+  结构组件：顶部导航 → 错落大标题+渐变装饰 → 宣言区 → 意象小标题(QUESTION/THOUGHT/PRINCIPLE) → 双栏正文 → 渐变横条 → 金句引用块(暖琥珀竖线) → 底部超大Thank you → CTA胶囊按钮 → 品牌尾标
+  配色系：主色 #1A1A1A，强调色 #C8A050(暖琥珀)，辅助 #999/#666，背景锚点 #F8F8F8
+  字号：正文 14-15px，大标题 36-42px(错落递进)，小标题 20px，标注 11px
+
+  AI 使用方法：选这个模板作为起手素材，把用户内容替换到对应区域。
+  保留视觉骨架（错落标题/渐变装饰/双栏/金句块），替换文字内容。
+  根据用户的内容和调性，调整配色和细节。
+-->
+
+<!-- ========== 顶部导航 ========== -->
+<section
+style="
+margin:0 0 32px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:0;
+  "
+  >
+    <section
+    style="
+    font-size:11px;
+    color:#1A1A1A;
+    letter-spacing:3px;
+    display:inline-block;
+    vertical-align:middle;
+    width:30%;
+    "
+    >
+      ANTARA
+    </section>
+    <section
+    style="
+    font-size:11px;
+    color:#999;
+    letter-spacing:1px;
+    text-align:right;
+    display:inline-block;
+    vertical-align:middle;
+    width:68%;
+    "
+    >
+      作品 · 服务 · 关于 · 联系
+    </section>
+  </section>
+  <p
+  style="
+  margin:0;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  margin-top:12px;
+  "
+  >
+    &nbsp;
+  </p>
+</section>
+
+
+<!-- ========== 主视觉区：错落标题 + 渐变装饰 ========== -->
+<section
+style="
+margin:24px 0 48px 0;
+padding:0 18px;
+position:relative;
+overflow:hidden;
+"
+>
+
+  <!-- 暖琥珀渐变装饰（右上角） -->
+  <section
+  style="
+  position:absolute;
+  top:-40px;
+  right:-40px;
+  width:220px;
+  height:220px;
+  background:radial-gradient(circle, rgba(200,160,80,0.25) 0%, rgba(200,160,80,0.05) 50%, transparent 70%);
+  border-radius:50%;
+  "
+  ></section>
+
+  <!-- 右侧圆形文字装饰 -->
+  <section
+  style="
+  position:absolute;
+  top:60px;
+  right:12px;
+  width:56px;
+  height:56px;
+  border:1px solid #D5D5D5;
+  border-radius:50%;
+  text-align:center;
+  line-height:56px;
+  font-size:9px;
+  color:#AAA;
+  letter-spacing:1px;
+  "
+  >
+    细节
+  </section>
+  <section
+  style="
+  position:absolute;
+  top:124px;
+  right:28px;
+  font-size:20px;
+  color:#CCC;
+  "
+  >
+    ↓
+  </section>
+
+  <!-- 标题旁小注释 -->
+  <section
+  style="
+  text-align:right;
+  padding-right:80px;
+  margin-bottom:16px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    <section
+    style="
+    font-size:11px;
+    color:#999;
+    line-height:1.6;
+    display:inline-block;
+    width:140px;
+    text-align:left;
+    "
+    >
+      一家多学科设计工作室，致力于通过简洁且具功能性的设计方案，塑造品牌理念。
+    </section>
+  </section>
+
+  <!-- 错落大标题：阶梯递进 -->
+  <section
+  style="
+  font-size:36px;
+  color:#1A1A1A;
+  line-height:1.1;
+  font-weight:normal;
+  margin-bottom:0;
+  position:relative;
+  z-index:1;
+  "
+  >
+    美学
+  </section>
+  <section
+  style="
+  font-size:32px;
+  color:#1A1A1A;
+  line-height:1.1;
+  font-weight:normal;
+  margin-bottom:0;
+  padding-left:32px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    与功能
+  </section>
+  <section
+  style="
+  font-size:40px;
+  color:#1A1A1A;
+  line-height:1.1;
+  font-weight:normal;
+  margin-bottom:4px;
+  padding-left:64px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    交汇之处
+  </section>
+
+  <!-- 左侧小注释 -->
+  <section
+  style="
+  margin-top:32px;
+  margin-bottom:16px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    <section
+    style="
+    font-size:11px;
+    color:#999;
+    line-height:1.6;
+    width:55%;
+    "
+    >
+      我们总部位于危地马拉，但服务遍布全球。与本地及国际客户合作，他们像我们一样重视设计。
+    </section>
+  </section>
+
+</section>
+
+
+<!-- ========== 视觉锚点：短横线分隔 ========== -->
+<section
+style="
+text-align:center;
+margin:16px 0;
+"
+>
+  <p
+  style="
+  margin:0 auto;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  width:60px;
+  "
+  >
+    &nbsp;
+  </p>
+</section>
+
+
+<!-- ========== 宣言区 ========== -->
+<section
+style="
+margin:48px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:22px;
+  color:#1A1A1A;
+  line-height:1.5;
+  font-weight:normal;
+  margin-bottom:16px;
+  "
+  >
+    我们致力于创造
+  </section>
+
+  <!-- 淡黄色四块装饰 -->
+  <section
+  style="
+  margin-bottom:12px;
+  text-align:right;
+  "
+  >
+    <section
+    style="
+    display:inline-block;
+    width:24px;
+    height:5px;
+    background:#F5E6C8;
+    margin-right:3px;
+    "
+    ></section>
+    <section
+    style="
+    display:inline-block;
+    width:24px;
+    height:5px;
+    background:#F5E6C8;
+    margin-right:3px;
+    "
+    ></section>
+    <section
+    style="
+    display:inline-block;
+    width:24px;
+    height:5px;
+    background:#F5E6C8;
+    margin-right:3px;
+    "
+    ></section>
+    <section
+    style="
+    display:inline-block;
+    width:24px;
+    height:5px;
+    background:#F5E6C8;
+    "
+    ></section>
+  </section>
+
+  <section
+  style="
+  font-size:22px;
+  color:#1A1A1A;
+  line-height:1.5;
+  font-weight:normal;
+  margin-bottom:16px;
+  text-align:right;
+  "
+  >
+    令人难忘的品牌
+  </section>
+  <section
+  style="
+  font-size:15px;
+  color:#666;
+  line-height:1.8;
+  margin-top:24px;
+  "
+  >
+    通过概念驱动型设计解决方案，讲述引人入胜的故事。让每一个品牌都拥有自己的声音与灵魂，在喧嚣的市场中被看见、被记住、被信赖。
+  </section>
+</section>
+
+
+<!-- ========== 小标题1：节奏控制器 —— 意象式 ========== -->
+<section
+style="
+margin:56px 0 24px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:11px;
+  color:#C8A050;
+  letter-spacing:4px;
+  margin-bottom:8px;
+  "
+  >
+    QUESTION
+  </section>
+  <section
+  style="
+  font-size:20px;
+  color:#1A1A1A;
+  line-height:1.4;
+  font-weight:normal;
+  "
+  >
+    是什么让某些品牌脱颖而出？
+  </section>
+  <p
+  style="
+  margin:0;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  margin-top:16px;
+  "
+  >
+    &nbsp;
+  </p>
+</section>
+
+
+<!-- ========== 双栏正文（float 布局，公众号最稳定） ========== -->
+<section
+style="
+margin:32px 0;
+padding:0 18px;
+overflow:hidden;
+"
+>
+  <section
+  style="
+  width:48%;
+  float:left;
+  font-size:14px;
+  color:#666;
+  line-height:1.8;
+  "
+  >
+    你是否想过，是什么让某些品牌脱颖而出？是什么让它们如此令人难忘？答案是——清晰的品牌身份感，能够与目标受众完美连接。在这个信息过载的时代，消费者每天被成千上万的品牌信息轰炸，但真正能留下印记的，永远是那些拥有独特视觉语言和一致表达的品牌。
+  </section>
+  <section
+  style="
+  width:48%;
+  float:right;
+  font-size:14px;
+  color:#666;
+  line-height:1.8;
+  "
+  >
+    这正是设计工作室存在的意义。我们帮助客户定义独特的品牌身份，并与他们的目标受众建立深层连接。每一次设计决策背后，都是对消费者心理的深度洞察，对品牌价值的精准提炼，以及对视觉美感的极致追求。设计不是装饰，而是战略的延伸。
+  </section>
+</section>
+
+
+<!-- ========== 视觉锚点：渐变装饰横条 ========== -->
+<section
+style="
+margin:48px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  height:2px;
+  background:linear-gradient(to right, transparent 0%, rgba(200,160,80,0.4) 40%, rgba(200,160,80,0.4) 60%, transparent 100%);
+  "
+  ></section>
+</section>
+
+
+<!-- ========== 小标题2：节奏控制器 —— 意象式 ========== -->
+<section
+style="
+margin:56px 0 24px 0;
+padding:0 18px;
+position:relative;
+"
+>
+  <!-- 左侧暖琥珀渐变装饰 -->
+  <section
+  style="
+  position:absolute;
+  top:-30px;
+  left:-20px;
+  width:120px;
+  height:120px;
+  background:radial-gradient(circle, rgba(200,160,80,0.2) 0%, transparent 70%);
+  border-radius:50%;
+  "
+  ></section>
+
+  <section
+  style="
+  font-size:11px;
+  color:#C8A050;
+  letter-spacing:4px;
+  margin-bottom:8px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    THOUGHT
+  </section>
+  <section
+  style="
+  font-size:20px;
+  color:#1A1A1A;
+  line-height:1.4;
+  font-weight:normal;
+  position:relative;
+  z-index:1;
+  "
+  >
+    当形式开始讲述故事
+  </section>
+  <p
+  style="
+  margin:0;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  margin-top:16px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    &nbsp;
+  </p>
+</section>
+
+
+<!-- ========== 正文延续 ========== -->
+<section
+style="
+margin:32px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:15px;
+  color:#3A3A3A;
+  line-height:1.9;
+  margin-bottom:16px;
+  "
+  >
+    我们相信，每一个品牌都有属于自己的故事。设计的使命，就是让这个故事以最恰当的方式被讲述。不是大声喧哗，而是精准击中。不是面面俱到，而是恰到好处。好的设计应该像空气一样——无处不在，却不被察觉。它应该让消费者在不知不觉中产生好感，在潜移默化中建立信任。
+  </section>
+
+  <section
+  style="
+  font-size:15px;
+  color:#3A3A3A;
+  line-height:1.9;
+  margin-bottom:16px;
+  "
+  >
+    从品牌命名到视觉识别，从包装设计到数字体验，每一个环节都是品牌故事的有机组成部分。我们不追求浮夸的视觉冲击，而是追求持久的品牌记忆。一个成功的品牌设计，应该能在消费者心中种下种子，并在未来的某个时刻开花结果。
+  </section>
+</section>
+
+
+<!-- ========== 装饰区：圆形图标 + 箭头 ========== -->
+<section
+style="
+margin:48px 0 32px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  display:inline-block;
+  width:44px;
+  height:44px;
+  border:1px solid #D5D5D5;
+  border-radius:50%;
+  text-align:center;
+  line-height:44px;
+  font-size:16px;
+  color:#CCC;
+  vertical-align:middle;
+  "
+  >
+    ◉
+  </section>
+  <section
+  style="
+  display:inline-block;
+  font-size:20px;
+  color:#999;
+  vertical-align:middle;
+  margin-left:12px;
+  letter-spacing:2px;
+  "
+  >
+    ——→
+  </section>
+</section>
+
+
+<!-- ========== 视觉锚点：金句引用块（暖琥珀竖线） ========== -->
+<section
+style="
+margin:40px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  padding:24px 24px 24px 28px;
+  background:#F8F8F8;
+  border-left:2px solid #C8A050;
+  "
+  >
+    <section
+    style="
+    font-size:15px;
+    color:#555;
+    line-height:1.8;
+    font-style:italic;
+    "
+    >
+      "好的设计不仅是视觉的愉悦，更是功能的无声表达。"
+    </section>
+  </section>
+</section>
+
+
+<!-- ========== 小标题3：节奏控制器 —— 意象式 ========== -->
+<section
+style="
+margin:56px 0 24px 0;
+padding:0 18px;
+position:relative;
+"
+>
+  <!-- 右侧暖琥珀渐变装饰 -->
+  <section
+  style="
+  position:absolute;
+  top:-20px;
+  right:-10px;
+  width:160px;
+  height:160px;
+  background:radial-gradient(circle, rgba(200,160,80,0.18) 0%, transparent 70%);
+  border-radius:50%;
+  "
+  ></section>
+
+  <section
+  style="
+  font-size:11px;
+  color:#C8A050;
+  letter-spacing:4px;
+  margin-bottom:8px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    PRINCIPLE
+  </section>
+  <section
+  style="
+  font-size:20px;
+  color:#1A1A1A;
+  line-height:1.4;
+  font-weight:normal;
+  position:relative;
+  z-index:1;
+  "
+  >
+    少即是多，还是多即是少？
+  </section>
+  <p
+  style="
+  margin:0;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  margin-top:16px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    &nbsp;
+  </p>
+</section>
+
+
+<!-- ========== 正文延续 ========== -->
+<section
+style="
+margin:32px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:15px;
+  color:#3A3A3A;
+  line-height:1.9;
+  margin-bottom:16px;
+  "
+  >
+    极简主义不是简单的删减，而是对本质的提炼。每一个元素的存在都必须有其理由，每一处留白都在传达信息。当我们为客户设计品牌时，我们总是先问：什么是不可替代的？什么是最核心的？什么是必须被看见的？只有回答了这些问题，我们才能开始动手。
+  </section>
+
+  <section
+  style="
+  font-size:15px;
+  color:#3A3A3A;
+  line-height:1.9;
+  margin-bottom:16px;
+  "
+  >
+    然而，极简并不意味着单调。在克制中寻找张力，在留白中发现丰富，在秩序中创造惊喜——这才是我们追求的设计境界。就像日本建筑师隈研吾所说的，"让建筑消失"——最好的设计，是让设计本身隐身，只留下那份恰到好处的体验。
+  </section>
+</section>
+
+
+<!-- ========== 分割线标签 ========== -->
+<section
+style="
+margin:48px 0;
+padding:0 18px;
+"
+>
+  <section
+  style="
+  font-size:0;
+  "
+  >
+    <section
+    style="
+    font-size:12px;
+    color:#333;
+    letter-spacing:1px;
+    display:inline-block;
+    vertical-align:middle;
+    width:20%;
+    "
+    >
+      精选作品
+    </section>
+    <section
+    style="
+    display:inline-block;
+    vertical-align:middle;
+    width:60%;
+    "
+    >
+      <p
+      style="
+      margin:0;
+      padding:0;
+      border-top:1px solid #E8E8E8;
+      font-size:0;
+      line-height:0;
+      "
+      >
+        &nbsp;
+      </p>
+    </section>
+    <section
+    style="
+    font-size:12px;
+    color:#333;
+    letter-spacing:1px;
+    text-align:right;
+    display:inline-block;
+    vertical-align:middle;
+    width:18%;
+    "
+    >
+      项目
+    </section>
+  </section>
+</section>
+
+
+<!-- ========== 底部超大标题 ========== -->
+<section
+style="
+margin:64px 0 48px 0;
+padding:0 18px;
+position:relative;
+"
+>
+  <!-- 底部渐变装饰 -->
+  <section
+  style="
+  position:absolute;
+  bottom:-30px;
+  left:50%;
+  margin-left:-100px;
+  width:200px;
+  height:200px;
+  background:radial-gradient(circle, rgba(200,160,80,0.15) 0%, transparent 70%);
+  border-radius:50%;
+  "
+  ></section>
+
+  <section
+  style="
+  font-size:42px;
+  color:#1A1A1A;
+  line-height:1.1;
+  font-weight:normal;
+  margin-bottom:8px;
+  position:relative;
+  z-index:1;
+  "
+  >
+    Thank
+  </section>
+  <section
+  style="
+  font-size:42px;
+  color:#1A1A1A;
+  line-height:1.1;
+  font-weight:normal;
+  text-align:right;
+  position:relative;
+  z-index:1;
+  "
+  >
+    you
+  </section>
+</section>
+
+
+<!-- ========== 收束区：底部品牌 ========== -->
+<section
+style="
+margin:40px 0 48px 0;
+padding:0 18px;
+"
+>
+  <p
+  style="
+  margin:0;
+  padding:0;
+  border-top:1px solid #E8E8E8;
+  font-size:0;
+  line-height:0;
+  margin-bottom:24px;
+  "
+  >
+    &nbsp;
+  </p>
+
+  <section
+  style="
+  font-size:15px;
+  color:#3A3A3A;
+  line-height:1.9;
+  margin-bottom:24px;
+  text-align:center;
+  "
+  >
+    如果你也在寻找那个让品牌发光的契机，我们随时准备倾听你的故事。
+  </section>
+
+  <section
+  style="
+  text-align:center;
+  margin-bottom:28px;
+  "
+  >
+    <section
+    style="
+    display:inline-block;
+    background:#1A1A1A;
+    color:#fff;
+    font-size:13px;
+    letter-spacing:2px;
+    padding:10px 32px;
+    border-radius:24px;
+    "
+    >
+      联系我们
+    </section>
+  </section>
+
+  <section
+  style="
+  font-size:11px;
+  color:#AAA;
+  letter-spacing:3px;
+  text-align:center;
+  margin-bottom:8px;
+  "
+  >
+    ANTARA STUDIO
+  </section>
+  <section
+  style="
+  font-size:11px;
+  color:#CCC;
+  letter-spacing:2px;
+  text-align:center;
+  font-style:italic;
+  "
+  >
+    Where aesthetics and functionality meet
+  </section>
+</section>
