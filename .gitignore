@@ -1,16 +1,8 @@
-# Dependencies
-node_modules/
-
-# Go build output
-/easygzh
-/easygzh.exe
-/dist/
-
-# Test / scratch output
-*.test.html
+# Scratch / output
 output.html
-/tmp/
-test_draft.json
+*.test.html
+work/
+tmp/
 
 # OS files
 .DS_Store

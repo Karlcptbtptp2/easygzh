@@ -8,7 +8,7 @@ account: main-account
 ---
 # 主号视觉调性
 
-这些规范会被翻译成主题 CSS（写入 current-theme.md 或仓库 themes/）。每次排版保持一致 = 调性稳定。
+AI 在生成公众号 HTML 时，**直接据此写入每个元素的内联样式（style="..."）**。每次排版保持一致 = 调性稳定。
 
 ## 配色
 

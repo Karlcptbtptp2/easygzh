@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>easyGZH 内页1 - 痛点对比</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    width: 1080px; height: 1440px;
+    font-family: 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(160deg, #FFF5E6 0%, #FFE6E6 100%);
+    overflow: hidden; position: relative;
+  }
+  .deco { position: absolute; border-radius: 50%; opacity: 0.12; }
+  .deco-1 { width: 400px; height: 400px; background: #FF8C69; top: -100px; right: -120px; }
+  .deco-2 { width: 280px; height: 280px; background: #C77DFF; bottom: -80px; left: -80px; }
+
+  .wrap {
+    position: relative; z-index: 10;
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+    padding: 90px 70px;
+  }
+
+  .title {
+    text-align: center; margin-bottom: 50px;
+  }
+  .title h1 {
+    font-size: 64px; font-weight: 900; color: #2D2D2D;
+    line-height: 1.2;
+  }
+  .title .sub {
+    font-size: 30px; color: #888; margin-top: 16px; font-weight: 400;
+  }
+
+  .vs-area {
+    flex: 1; display: flex; gap: 30px; align-items: stretch;
+  }
+
+  .col {
+    flex: 1; border-radius: 28px; padding: 50px 40px;
+    display: flex; flex-direction: column;
+  }
+
+  .col-bad {
+    background: #F5F5F5;
+    border: 3px solid #E0E0E0;
+  }
+  .col-good {
+    background: #FFF;
+    border: 3px solid #FF6B9D;
+    box-shadow: 0 10px 40px rgba(255,107,157,0.15);
+    transform: scale(1.02);
+  }
+
+  .col-tag {
+    align-self: flex-start;
+    border-radius: 50px; padding: 12px 32px;
+    font-size: 26px; font-weight: 700; margin-bottom: 30px;
+  }
+  .col-bad .col-tag { background: #E0E0E0; color: #999; }
+  .col-good .col-tag { background: #FF6B9D; color: #FFF; }
+
+  .pain-item, .gain-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    margin-bottom: 26px; font-size: 27px; line-height: 1.5;
+  }
+  .pain-icon { font-size: 30px; flex-shrink: 0; margin-top: 2px; }
+  .gain-icon { font-size: 30px; flex-shrink: 0; margin-top: 2px; }
+  .pain-text { color: #999; text-decoration: line-through; text-decoration-color: #CCC; }
+  .gain-text { color: #2D2D2D; font-weight: 500; }
+
+  .col-good .gain-item:last-child { margin-bottom: 0; }
+  .col-bad .pain-item:last-child { margin-bottom: 0; }
+
+  .footer-arrow {
+    text-align: center; font-size: 60px; color: #FF6B9D;
+    margin: 30px 0 10px 0; font-weight: 900;
+  }
+  .footer-text {
+    text-align: center; font-size: 30px; color: #666; font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="deco deco-1"></div>
+  <div class="deco deco-2"></div>
+
+  <div class="wrap">
+    <div class="title">
+      <h1>排版这件事，不该这么累</h1>
+      <div class="sub">公众号小编的日常，你中了几个？</div>
+    </div>
+
+    <div class="vs-area">
+      <div class="col col-bad">
+        <div class="col-tag">😫 以前</div>
+        <div class="pain-item"><span class="pain-icon">🔄</span><span class="pain-text">每次排版风格都不一样，手动调到怀疑人生</span></div>
+        <div class="pain-item"><span class="pain-icon">💰</span><span class="pain-text">排版工具还要充会员、绑付费 API</span></div>
+        <div class="pain-item"><span class="pain-icon">📋</span><span class="pain-text">排完还要手动复制粘贴到公众号后台</span></div>
+        <div class="pain-item"><span class="pain-icon">🎨</span><span class="pain-text">主题就那几个，选来选去都撞衫</span></div>
+        <div class="pain-item"><span class="pain-icon">🔗</span><span class="pain-text">外链在正文里点不了，还得手动转脚注</span></div>
+      </div>
+
+      <div class="col col-good">
+        <div class="col-tag">✨ 用 easyGZH</div>
+        <div class="gain-item"><span class="gain-icon">🧠</span><span class="gain-text">排一次就记住你号的风格，以后都一致</span></div>
+        <div class="gain-item"><span class="gain-icon">💚</span><span class="gain-text">开源免费，不绑任何付费服务</span></div>
+        <div class="gain-item"><span class="gain-icon">🚀</span><span class="gain-text">一键推到草稿箱，后台直接能看到</span></div>
+        <div class="gain-item"><span class="gain-icon">🎨</span><span class="gain-text">真 CSS 主题，想怎么改怎么改</span></div>
+        <div class="gain-item"><span class="gain-icon">🔗</span><span class="gain-text">外链自动转脚注，正文干净可读</span></div>
+      </div>
+    </div>
+
+    <div class="footer-arrow">↓</div>
+    <div class="footer-text">换个方式，让 Agent 帮你搞定</div>
+  </div>
+</body>
+</html>

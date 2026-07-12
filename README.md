@@ -1,175 +1,176 @@
 # easyGZH
 
-> 一个编译型 Go CLI + Agent Skill，把写好的文字**稳定地**排成符合公众号调性的版式，并发布到草稿箱。本地渲染、本地发布、无付费绑定、有记忆。
+> 一个纯 Agent Skill。AI 直接把你的文字排成公众号版式，**记住你号的风格**，越用越懂你。
 
 ## 它解决什么
 
-公众号排版工具有两类老问题：
+公众号排版有两个老问题：
 
-1. **md2wechat-skill 这类**：渲染靠付费闭源 API（"48 主题"在服务端，OSS 代码是空壳），连纯发布都绑付费 key。
-2. **纯 AI 生成**：每次风格漂移，号没有统一调性；mdnice 这类靠人选主题，费时易撞衫。
+1. **工具太机械**：排版工具套模板、转格式，出来的东西千篇一律，纯文字白底，没有灵魂
+2. **AI 太随性**：每次让 AI 排版，风格都不一样，号的调性无法稳定
 
-easyGZH 的做法：**本地渲染**（goldmark + go-premailer CSS 内联，确定性，开源）+ **本地发布**（用户自己的 appid/secret 即可，零付费绑定）+ **OKF 记忆库**（记住每个号的调性，跨次复现）。
+easyGZH 的做法：**AI 直接写 HTML**（不走 Markdown→HTML 转换，所有创意判断在 HTML 层面完成）+ **记忆库记住你号的风格**（配色、结构、口头禅，越用越懂）+ **呼吸式排版**（控制读者的滑动节奏）。
 
 ## 核心特点
 
-- **🖥️ 本地渲染，确定性**：Markdown → goldmark → go-premailer CSS 内联 → 微信安全 HTML。同输入永远同输出，调性不漂移。**不依赖任何付费 API**。
-- **🔐 本地发布，零绑定**：只需用户自己的 `WECHAT_APPID`/`WECHAT_SECRET` 即可推草稿。access_token 用文件持久化（修复上游内存缓存烧配额的弱点）。
-- **🧠 本地记忆库**：每个公众号一个 profile（视觉/结构/主题/样本），采用 OKF 风格类型并由 OpenKnowledge 校验，越用越懂这个号。
-- **⚙️ 编译型单二进制**：Go 编译，11MB，`brew install` 或下载即用，无需 Node/Python 环境。
-- **🤖 Agent 原生**：是 Agent Skill（SKILL.md），跑在你已有的 agent 里，由 agent 指挥 CLI。
-- **📖 MIT 开源**：对比 md2wechat 的 BUSL-1.1。
+- **🤖 纯 Agent Skill**：没有 CLI、没有脚本、没有编译依赖。把 `SKILL.md` 加进你的 Agent（ZCode / Claude Code 等）就能用
+- **✍️ AI 直接写 HTML**：不走 Markdown→HTML 转换。AI 像设计师一样，直接在 HTML 上做所有创意判断——结构、配色、留白、金句、配图、情绪节奏
+- **🧠 记住你号的风格**：OKF 记忆库存储每个公众号的视觉调性、结构习惯、身份定位。排版前 AI 先读记忆库，带着对你的理解开始
+- **🌬️ 呼吸式排版**：每 3-4 个短段落后插入视觉锚点（金句/留白/小标题/配图），控制读者的滑动节奏，不是把文字堆上去
+- **💛 排版搭档而非工具人**：AI 读完你的文字，理解情绪走向，找到金句，保护口语感，给反馈给建议给温度
+- **📖 MIT 开源**
+
+## 循环流程图
+
+```
+                          ┌──────────────────────────────────┐
+                          │          用户接入 easyGZH          │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ① Agent 加载 Skill               │
+                          │  读 SKILL.md + references/        │
+                          │  + memory-scaffold/ + templates/  │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ② 初始化记忆库                    │
+                          │  memory-scaffold/ → ~/.easygzh/   │
+                          │  AI 读一遍，确认结构完整            │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ③ 首次接待（照接待剧本）           │
+                          │  一句话说能干嘛 → 问要不要装       │
+                          │  → 装好问要不要试一篇              │
+                          └──────────────┬───────────────────┘
+                                         │
+                                  ┌──────┴──────┐
+                                  │ 用户给内容？ │
+                                  └──────┬──────┘
+                                     是  │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ④ 理解内容 + 读记忆库             │
+                          │  AI 完整读一遍：情绪走向、金句候选  │
+                          │  读 profile：visual-tone、         │
+                          │  structure-tone、identity          │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ⑤ AI 直接写 HTML                 │
+                          │  综合内容 + 模板 + 微信约束         │
+                          │  + 呼吸式排版 + 记忆库调性          │
+                          │  → inline-styled HTML             │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ⑥ 微信安全自检（10 条清单）       │
+                          │  样式内联？标签白名单？图片绝对    │
+                          │  URL？外链转脚注？非纯白底？        │
+                          └──────────────┬───────────────────┘
+                                         │
+                                         ▼
+                          ┌──────────────────────────────────┐
+                          │  ⑦ 给用户看 + 调整                 │
+                          │  浏览器预览 → 告诉用户做了什么      │
+                          │  → 用户提意见 → AI 直接改 HTML     │
+                          └──────────────┬───────────────────┘
+                                         │
+                                  ┌──────┴──────┐
+                                  │  用户满意？  │
+                                  └──────┬──────┘
+                                  否     │     是
+                            ┌────────────┘     └──────────┐
+                            ▼                              ▼
+                     (回到 ⑦ 调整)              ┌─────────────────────┐
+                                               │  ⑧ 交付 / 发布       │
+                                               │  尝试浏览器自动填充   │
+                                               │  失败→给 HTML 手动粘 │
+                                               └──────────┬──────────┘
+                                                          │
+                                                          ▼
+                                               ┌─────────────────────┐
+                                               │  ⑨ 反馈 + 记忆更新   │
+                                               │  存样本到记忆库      │
+                                               │  更新视觉/结构偏好   │
+                                               │  记 log              │
+                                               └──────────┬──────────┘
+                                                          │
+                                                          │
+                                    ······················►
+                                    ·  下次排版时，AI 带着这些积累开始  ·
+                                    ·  越用越懂你 ←────────────────────·
+                                    ······················►
+```
+
+**关键：⑨→④ 的循环是 easyGZH 的核心价值。** 每排一次版，记忆库就丰富一层。下次排版时 AI 带着对你的理解开始，调性越来越稳定，越来越懂你。
+
+## 安装
+
+### 方式：把 SKILL.md 加到你的 Agent
+
+1. 把这个仓库 clone 到本地（或下载 `SKILL.md` + `references/` + `memory-scaffold/` + `templates/`）
+2. 把 `SKILL.md` 加到你的 Agent 的 skills 目录（ZCode / Claude Code 等）
+3. 确保仓库目录结构完整（SKILL.md 引用了 references/ 和 memory-scaffold/ 里的文件）
+4. 在对话里说"帮我排版公众号文章"
+
+Agent 会自动初始化记忆库，引导你建 profile，然后开始排版。全程不用装任何东西。
+
+## 使用
+
+跟你的 Agent 对话就行：
+
+```
+你：用 easyGZH 帮我排版这篇（贴文字 / 给文件）
+Agent：[读一遍理解内容] [读记忆库调性] [直接写 HTML]
+       排好了，你看看。我帮你做了这几件事：
+       1. 把口语长段拆成了短段
+       2. "……" 这句我拎出来做了金句
+       3. 加了一张配图在转折处
+       你看看有没有想调的地方？喜欢的话我就记住这个风格。
+```
+
+第一次为某号排版会引导建立 profile（号叫什么？写给谁？喜欢什么风格？）。
+
+## 仓库结构
+
+```
+easyGZH/
+├── SKILL.md                          # Agent 主指引（纯 Skill 核心文档）
+├── docs/
+│   └── agent-quickstart.md           # 接待剧本（首次接触用户怎么说话）
+├── references/                       # 渐进式披露知识文档
+│   ├── wechat-constraints.md         # 微信 HTML 10 条硬约束（AI 必读）
+│   ├── inline-style-guide.md         # 内联样式指南（组件写法+经验参数）
+│   ├── delivery-paths.md             # 交付路径（浏览器/剪贴板/文件降级）
+│   └── memory-schema.md              # 记忆库 schema 与 type 词汇表
+├── memory-scaffold/                  # 记忆库脚手架（复制到 ~/.easygzh/memory/）
+│   ├── index.md
+│   ├── preferences.md
+│   └── profiles/.template/           # 新建账号的模板
+├── templates/                        # 排版模板库（AI 参考）
+├── LICENSE                           # MIT
+└── README.md
+```
 
 ## 与 md2wechat-skill 的对比
 
 | 维度 | easyGZH | md2wechat-skill |
 |------|---------|----------------|
-| **渲染** | ✅ 本地（goldmark + go-premailer），开源 | ❌ 付费闭源 API（OSS 是空壳） |
-| **主题** | ✅ 真 CSS，可本地创作 | 服务端别名，无法本地定制 |
-| **发布付费绑定** | ✅ 无，纯 appid/secret 即可 | ❌ 绑 md2wechat API key |
-| **access_token 缓存** | ✅ 文件持久化 | 内存，每次重取（烧配额） |
-| **微信错误码** | ✅ 全表 | 仅 4 个 |
-| **记忆/调性** | ✅ OKF 记忆库（核心差异化） | ❌ 无（Brand Profile 是静态文件） |
-| **AI 模式** | 委托 agent（不内置 LLM） | 只发 prompt 给 agent 不执行 |
-| **图像生成** | 只做处理+上传，生成交 agent | 7 provider 但只是发 prompt |
-| **技术栈** | Go 单二进制 | Go 二进制 + npm 包装 |
+| **渲染方式** | ✅ AI 直接写 HTML，全创意自由 | ❌ 付费闭源 API 渲染 |
+| **调性稳定** | ✅ 记忆库记住你号的风格 | ❌ 无（每次漂移） |
+| **视觉表达** | ✅ 呼吸式排版 + 金句块 + 配图 + 留白 | 模板套用 |
+| **付费绑定** | ✅ 无 | ❌ 绑 md2wechat API key |
+| **AI 角色** | ✅ 排版搭档（理解内容、找金句、给反馈） | 工具（跑命令） |
 | **许可证** | MIT | BUSL-1.1（商业受限） |
-| **newspic/小绿书** | 不做（无官方 API） | 手写 HTTP（脆弱） |
 
-一句话：**md2wechat 的渲染是付费黑盒，easyGZH 是开源本地；md2wechat 无记忆，easyGZH 记住你的号。**
-
----
-
-> 🤖 **通过 Agent（ZCode / Claude Code 等）使用？** 先看 [Agent 快速开始](docs/agent-quickstart.md) —— 你的 Agent 会一步步带你上手：说清能干嘛、问你要不要装、装好带你排第一篇，全程不用读技术手册。
-
----
-
-## 安装
-
-### 方式 1：从源码编译（当前）
-
-```bash
-git clone https://github.com/Karlcptbtptp2/easygzh.git
-cd easygzh
-make build          # 产出 ./easygzh
-./easygzh version
-```
-
-需要 Go ≥ 1.22。`make build` 会处理依赖。
-
-### 方式 2：下载预编译二进制（发布后）
-
-见 GitHub Releases（macOS/Linux/Windows × amd64/arm64）。
-
-### 配置微信发布（可选，仅发布需要）
-
-```bash
-export WECHAT_APPID=你的appid
-export WECHAT_SECRET=你的secret
-# access_token 会持久化到 ~/.easygzh/token.json
-```
-
-## 使用
-
-### 命令一览
-
-```bash
-easygzh convert <article.md> --theme default        # 渲染为公众号 HTML
-easygzh preview <article.md> --theme lively          # 浏览器预览
-easygzh inspect <article.md> --json                  # 就绪检查
-easygzh publish <article.md> --title "标题" --json    # 推草稿（需凭证）
-easygzh publish <article.md> --save-draft out.json   # 只生成本地草稿JSON（不推微信）
-easygzh image <img.jpg> --upload                     # 处理并上传图片
-easygzh memory init                                  # 初始化本地记忆库
-easygzh memory status --json                         # 查看存在性、profiles 和健康状态
-easygzh memory validate --json                       # 校验元数据、链接和秘密扫描
-easygzh memory profile add <account>                 # 新增公众号 profile
-easygzh theme list                                   # 列内置主题
-easygzh template list                                # 列内置结构模板
-easygzh template show mindful-journal                # 查看模板内容
-easygzh convert art.md --template mindful-journal    # 用结构模板渲染
-easygzh doctor --json                                # 环境诊断
-easygzh skills read easygzh                          # 输出 SKILL.md（供 agent 读）
-```
-
-所有命令支持 `--json` 输出结构化响应（含 `code`/`data`/`next_actions`），便于 agent 消费。
-
-### 结构模板（场景化排版）
-
-视觉主题（`--theme`）控制 Markdown 标签的样式（标题/正文/引用/列表）；**结构模板**（`--template`）控制文章的叙事结构（品牌标识 → 钩子标题 → 正文 → CTA → 收束），能表达 Markdown 无法描述的组件：品牌标识区、胶囊按钮、金句卡片、分割线标签、底部品牌尾标等。
-
-```bash
-# 用正念冥想结构模板排版
-easygzh convert article.md --template mindful-journal \
-  --brand-label "( 每月正念 )" \
-  --brand-footer "WILDE HOUSE PAPER" \
-  --subtitle "这个月的发现与觉察" \
-  -o output.html
-```
-
-内置模板：`mindful-journal`（正念冥想）、`book-club`（读书俱乐部）、`product-launch`（产品发布）。用 `easygzh template list` 查看全部。模板和主题可以组合使用（`--template` + `--theme`）。
-
-所有命令支持 `--json` 输出结构化响应（含 `code`/`data`/`next_actions`），便于 agent 消费。
-
-### 作为 Agent Skill 使用
-
-把 `SKILL.md` 加到你的 agent（ZCode / Claude Code 等），然后对话：
-
-```
-你：用 easyGZH 帮我排版这篇（贴文字/给文件）
-Agent：[doctor 探测] [读记忆库调性] [convert 渲染]
-       已生成 inline HTML。满意吗？满意我存到样本库里。
-       要发布到草稿箱吗？（你已配 WECHAT_APPID/SECRET）
-```
-
-第一次为某号排版会引导建立 profile（三条路线：自建 / 从满意文章提炼 / AI 优化）。
-
-## 渲染管线（纯本地）
-
-```
-Markdown ──goldmark(+GFM)──▶ HTML ──[结构模板插槽注入]──▶ go-premailer 内联CSS──▶ 微信安全后处理 ──▶ inline-styled HTML
-```
-
-结构模板步骤是可选的（`--template` 为空时跳过，向后兼容）。
-
-- **goldmark**：CommonMark + 表格/删除线/linkify/任务列表
-- **go-premailer**：CSS 内联到 `style=""`（goquery + Cascadia，支持 `#easygzh-root h1` 后代选择器）
-- **微信后处理**：标签白名单、嵌套深度<15、图片绝对化、列表标记硬化、外链转脚注
-
-确定性是调性稳定的技术根基。CSS 内联层经 golden fixture 测试与 Node `juice` 对齐验证。
-
-## 目录结构
-
-```
-easyGZH/
-├── cmd/easygzh/           # CLI（cobra）：convert/preview/publish/image/memory/theme/doctor/skills
-├── internal/
-│   ├── render/            # 渲染管线（markdown/inline/wechat/render）
-│   ├── wechat/            # 发布（FileCache/client/errors/publish）— silenceper SDK
-│   ├── image/             # 图像处理与上传（imaging）
-│   ├── memory/            # OKF 记忆库读写
-│   ├── theme/             # 主题加载
-│   ├── template/          # 结构模板加载
-│   └── cli/               # JSON 响应契约
-├── themes/                # 内置主题（default.css / lively.css，纯 CSS）
-├── templates/             # 内置结构模板（mindful-journal / book-club / product-launch）
-├── memory-scaffold/       # OKF 记忆库骨架
-├── SKILL.md               # Agent 指挥手册
-├── references/            # 渐进式披露文档
-├── testdata/              # golden fixtures（juice vs go-premailer 对齐）
-└── Makefile
-```
-
-## 技术栈
-
-| 模块 | 库 |
-|------|-----|
-| Markdown | [yuin/goldmark](https://github.com/yuin/goldmark) |
-| CSS 内联 | [vanng822/go-premailer](https://github.com/vanng822/go-premailer) |
-| 微信 SDK | [silenceper/wechat/v2](https://github.com/silenceper/wechat) |
-| 图像 | [disintegration/imaging](https://github.com/disintegration/imaging) |
-| CLI | [spf13/cobra](https://github.com/spf13/cobra) |
-| 记忆库 | [OKF 协议](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) + [OpenKnowledge](https://github.com/inkeep/open-knowledge) 结构 |
+一句话：**md2wechat 是付费黑盒渲染，easyGZH 是 AI 设计师帮你排版。**
 
 ## License
 

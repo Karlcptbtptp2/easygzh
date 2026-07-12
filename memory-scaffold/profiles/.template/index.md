@@ -11,5 +11,4 @@ account: main-account
 - [身份定位](identity.md)
 - [视觉调性](visual-tone.md)
 - [结构习惯](structure-tone.md)
-- [当前主题](current-theme.md)
 - [满意样本](samples/index.md)
