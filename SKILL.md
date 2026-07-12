@@ -104,6 +104,8 @@ easygzh CLI 每个命令都输出结构化 JSON（`--json`，含 `code`/`data`/`
 
 ## Stage 3 — 确定模板/主题
 
+### 3a. 视觉主题（`--theme`）—— 控制标签样式
+
 跑 `easygzh theme list --json` 看内置主题。**列出让用户选，默认用已有 profile 的 current-theme（最高自动化）：**
 
 | 路线 | 做法 | 适用 |
@@ -112,6 +114,31 @@ easygzh CLI 每个命令都输出结构化 JSON（`--json`，含 `code`/`data`/`
 | **B. 自建** | 对话问答（主色？字号？严肃/活泼？emoji？）→ 生成主题 CSS | 全新号 |
 | **C. 从满意文章提炼** | 用户给 1-3 篇满意文章 → 你提取视觉特征 → 生成主题 | 有积累的号 |
 | **D. AI 优化现有** | 读当前主题 + 用户反馈 → 你提议 diff → 确认 → 更新 | 迭代调性 |
+
+### 3b. 结构模板（`--template`）—— 控制叙事结构
+
+跑 `easygzh template list --json` 看内置结构模板。结构模板在 Markdown 渲染结果外包裹品牌标识区、钩子标题区、CTA 收束区等 Markdown 无法表达的组件：
+
+| 模板 | 适用场景 | 组件 |
+|------|---------|------|
+| `mindful-journal` | 正念冥想、生活随笔 | 品牌标识 + 钩子 + 正文 + 反思引导 + 品牌尾标 |
+| `book-club` | 读书会、社群活动 | 居中标题 + 胶囊按钮 + 气泡标签 + CTA + 品牌尾标 |
+| `product-launch` | 产品发布、工具推荐 | 醒目标题 + 痛点气泡 + 特性列表 + 对比 + CTA按钮 |
+
+**选择原则**：
+- 用户有品牌调性需求（开头品牌名、结尾 CTA、分区叙事）→ 选结构模板
+- 用户只是快速排版 → 不用模板（`--template` 留空），纯 Markdown 渲染
+- 结构模板和视觉主题可以组合：`--template mindful-journal --theme lively`
+
+**填充模板插槽**：
+```
+easygzh convert art.md --template mindful-journal \
+  --brand-label "( 每月正念 )" \
+  --brand-footer "WILDE HOUSE PAPER" \
+  --subtitle "这个月的发现" \
+  --title "探索与觉察"
+```
+`--title` 留空时自动从文章第一个 `# 标题` 提取。
 
 额外选项：**无模板**（`convert --css ""`，最快但调性不保证）；**纯模板**（convert 直接渲染）；**模板 + AI 协作**（视觉层锁模板，AI 补过渡句/摘要）。
 

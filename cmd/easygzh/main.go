@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/easygzh/easygzh/internal/template"
 	"github.com/easygzh/easygzh/internal/theme"
 	"github.com/spf13/cobra"
 )
@@ -44,6 +45,7 @@ func newRootCmd() *cobra.Command {
 	root.AddCommand(newVersionCmd())
 	root.AddCommand(newDoctorCmd())
 	root.AddCommand(newThemeCmd())
+	root.AddCommand(newTemplateCmd())
 	root.AddCommand(newMemoryCmd())
 	root.AddCommand(newInspectCmd())
 	root.AddCommand(newPublishCmd())
@@ -62,6 +64,11 @@ Run with --json for structured output consumable by an AI agent.`
 // helper: build a theme manager rooted at the default themes dir.
 func themeManager() *theme.Manager {
 	return &theme.Manager{ThemesDir: theme.DefaultThemesDir()}
+}
+
+// helper: build a template manager rooted at the default templates dir.
+func templateManager() *template.Manager {
+	return &template.Manager{TemplatesDir: template.DefaultTemplatesDir()}
 }
 
 func newVersionCmd() *cobra.Command {

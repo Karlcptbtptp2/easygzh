@@ -85,9 +85,29 @@ easygzh memory status --json                         # 查看存在性、profile
 easygzh memory validate --json                       # 校验元数据、链接和秘密扫描
 easygzh memory profile add <account>                 # 新增公众号 profile
 easygzh theme list                                   # 列内置主题
+easygzh template list                                # 列内置结构模板
+easygzh template show mindful-journal                # 查看模板内容
+easygzh convert art.md --template mindful-journal    # 用结构模板渲染
 easygzh doctor --json                                # 环境诊断
 easygzh skills read easygzh                          # 输出 SKILL.md（供 agent 读）
 ```
+
+所有命令支持 `--json` 输出结构化响应（含 `code`/`data`/`next_actions`），便于 agent 消费。
+
+### 结构模板（场景化排版）
+
+视觉主题（`--theme`）控制 Markdown 标签的样式（标题/正文/引用/列表）；**结构模板**（`--template`）控制文章的叙事结构（品牌标识 → 钩子标题 → 正文 → CTA → 收束），能表达 Markdown 无法描述的组件：品牌标识区、胶囊按钮、金句卡片、分割线标签、底部品牌尾标等。
+
+```bash
+# 用正念冥想结构模板排版
+easygzh convert article.md --template mindful-journal \
+  --brand-label "( 每月正念 )" \
+  --brand-footer "WILDE HOUSE PAPER" \
+  --subtitle "这个月的发现与觉察" \
+  -o output.html
+```
+
+内置模板：`mindful-journal`（正念冥想）、`book-club`（读书俱乐部）、`product-launch`（产品发布）。用 `easygzh template list` 查看全部。模板和主题可以组合使用（`--template` + `--theme`）。
 
 所有命令支持 `--json` 输出结构化响应（含 `code`/`data`/`next_actions`），便于 agent 消费。
 
@@ -107,8 +127,10 @@ Agent：[doctor 探测] [读记忆库调性] [convert 渲染]
 ## 渲染管线（纯本地）
 
 ```
-Markdown ──goldmark(+GFM)──▶ HTML ──go-premailer 内联CSS──▶ 微信安全后处理 ──▶ inline-styled HTML
+Markdown ──goldmark(+GFM)──▶ HTML ──[结构模板插槽注入]──▶ go-premailer 内联CSS──▶ 微信安全后处理 ──▶ inline-styled HTML
 ```
+
+结构模板步骤是可选的（`--template` 为空时跳过，向后兼容）。
 
 - **goldmark**：CommonMark + 表格/删除线/linkify/任务列表
 - **go-premailer**：CSS 内联到 `style=""`（goquery + Cascadia，支持 `#easygzh-root h1` 后代选择器）
@@ -127,8 +149,10 @@ easyGZH/
 │   ├── image/             # 图像处理与上传（imaging）
 │   ├── memory/            # OKF 记忆库读写
 │   ├── theme/             # 主题加载
+│   ├── template/          # 结构模板加载
 │   └── cli/               # JSON 响应契约
 ├── themes/                # 内置主题（default.css / lively.css，纯 CSS）
+├── templates/             # 内置结构模板（mindful-journal / book-club / product-launch）
 ├── memory-scaffold/       # OKF 记忆库骨架
 ├── SKILL.md               # Agent 指挥手册
 ├── references/            # 渐进式披露文档

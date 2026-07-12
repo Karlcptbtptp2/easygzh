@@ -12,9 +12,15 @@ import (
 
 func newConvertCmd() *cobra.Command {
 	var (
-		outFile     string
-		noFootnotes bool
-		themeCSS    string // raw CSS override
+		outFile      string
+		noFootnotes  bool
+		themeCSS     string // raw CSS override
+		templateName string // structure template name
+		title        string // override title for template slots
+		brandLabel   string // brand label for template
+		brandFooter  string // footer brand name for template
+		subtitle     string // subtitle/lead for template
+		ctaText      string // CTA text for template
 	)
 	cmd := &cobra.Command{
 		Use:   "convert <markdown-file>",
@@ -44,9 +50,31 @@ stdout unless --output is given.`,
 				}
 			}
 
+			// Load structure template if specified.
+			var tmplCSS, tmplHTML string
+			var slotData render.SlotData
+			if templateName != "" {
+				tmpl, err := templateManager().Load(templateName)
+				if err != nil {
+					return emit(cmd, cli.Fail("TEMPLATE_NOT_FOUND", err.Error()))
+				}
+				tmplCSS = tmpl.CSS
+				tmplHTML = tmpl.HTML
+				slotData = render.SlotData{
+					Title:       title,
+					BrandLabel:  brandLabel,
+					Subtitle:    subtitle,
+					CTAText:     ctaText,
+					BrandFooter: brandFooter,
+				}
+			}
+
 			out, err := render.Render(string(md), render.PipelineOptions{
 				ThemeCSS:      css,
 				LinkFootnotes: !noFootnotes,
+				TemplateHTML:  tmplHTML,
+				TemplateCSS:   tmplCSS,
+				SlotData:      slotData,
 			})
 			if err != nil {
 				return emit(cmd, cli.Fail("CONVERT_FAILED", err.Error()))
@@ -74,6 +102,12 @@ stdout unless --output is given.`,
 	cmd.Flags().StringVarP(&outFile, "output", "o", "", "write HTML to this file instead of stdout")
 	cmd.Flags().BoolVar(&noFootnotes, "no-footnotes", false, "keep external links as-is instead of converting to references")
 	cmd.Flags().StringVar(&themeCSS, "css", "", "raw CSS override (bypass theme loading)")
+	cmd.Flags().StringVarP(&templateName, "template", "t", "", "structure template name (e.g. mindful-journal, book-club, product-launch)")
+	cmd.Flags().StringVar(&title, "title", "", "title for template header (auto-extracted from h1 if omitted)")
+	cmd.Flags().StringVar(&brandLabel, "brand-label", "", "brand label for template header")
+	cmd.Flags().StringVar(&brandFooter, "brand-footer", "", "footer brand name")
+	cmd.Flags().StringVar(&subtitle, "subtitle", "", "subtitle/lead text for template header")
+	cmd.Flags().StringVar(&ctaText, "cta-text", "", "call-to-action text for template")
 	return cmd
 }
 
